@@ -3,7 +3,7 @@ import Button from "./Button";
 import TodoStatus from "./TodoStatus";
 import Delete from "./Delete";
 
-const Complet = ({ isCompleted, handleDeleteTodo, handleComplete }) => {
+const Complet = ({ isCompleted }) => {
   const buttonText = isCompleted ? "Add" : "Completed";
   return (
     <div
@@ -13,12 +13,12 @@ const Complet = ({ isCompleted, handleDeleteTodo, handleComplete }) => {
         justifyContent: "space-between",
       }}
     >
-      <Delete handleDeleteTodo={handleDeleteTodo} />
+      <Delete />
       {isCompleted ? (
         <TodoStatus isCompleted={isCompleted} />
       ) : (
         <>
-          <Button handleComplete={handleComplete} buttonText={buttonText} />
+          <Button buttonText={buttonText} />
           <TodoStatus isCompleted={isCompleted} />
         </>
       )}

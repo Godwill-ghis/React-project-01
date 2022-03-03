@@ -1,13 +1,7 @@
 import React from "react";
 import Complet from "./Complet";
 
-const Todo = ({
-  handleDeleteTodo,
-  todoText,
-  isCompleted,
-  id,
-  handleComplete,
-}) => {
+const Todo = ({ todoText, isCompleted, id }) => {
   return (
     <div
       id={id}
@@ -22,11 +16,7 @@ const Todo = ({
       }}
     >
       <p>{todoText}</p>
-      <Complet
-        isCompleted={isCompleted}
-        handleDeleteTodo={handleDeleteTodo}
-        handleComplete={handleComplete}
-      />
+      <Complet isCompleted={isCompleted} />
     </div>
   );
 };

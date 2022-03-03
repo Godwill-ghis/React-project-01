@@ -1,6 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
+import TodoContext, {
+  TodoDispatchContext,
+  FilteredTodoContext,
+  FilteredTodoDispatchContext,
+} from "./todoContext/TodoContext";
 
-const Button = ({ buttonText, handleComplete }) => {
+const Button = ({ buttonText }) => {
+  const inputTodo = useContext(TodoContext).todo;
+  const setTodoInput = useContext(TodoDispatchContext).setTodo;
+  const filterinputTodo = useContext(FilteredTodoContext).filterTodo;
+  const setFilterTodo = useContext(FilteredTodoDispatchContext).setFilterTodo;
+  const handleComplete = (e) => {
+    const todoId = e.target.parentNode.parentNode.getAttribute("id");
+    if (filterinputTodo !== null) {
+      const findfilterTodo = filterinputTodo.find(
+        (todo) => todo.id === parseFloat(todoId)
+      );
+      findfilterTodo.completed = true;
+      setFilterTodo(filterinputTodo);
+    }
+    console.log(inputTodo);
+    const findInputTodo = inputTodo.find((todo) => {
+      return todo.id === parseFloat(todoId);
+    });
+    findInputTodo.completed = true;
+    window.localStorage.setItem("myTodos", JSON.stringify(inputTodo));
+    setTodoInput(JSON.parse(window.localStorage.getItem("myTodos")));
+  };
   return (
     <button
       onClick={handleComplete}

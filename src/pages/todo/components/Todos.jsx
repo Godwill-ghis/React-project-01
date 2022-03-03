@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Todo from "./Todo";
+import TodoContext, { FilteredTodoContext } from "./todoContext/TodoContext";
 
-const Todos = ({ todoInput, handleDeleteTodo, handleComplete }) => {
+const Todos = () => {
+  const todos = useContext(TodoContext).todo;
+  const filterTodo = useContext(FilteredTodoContext).filterTodo;
+  const todoInput = filterTodo === null ? todos : filterTodo;
   return (
     <div
       style={{
@@ -16,12 +20,10 @@ const Todos = ({ todoInput, handleDeleteTodo, handleComplete }) => {
       {todoInput.map((todo) => {
         return (
           <Todo
-            handleDeleteTodo={handleDeleteTodo}
             isCompleted={todo.completed}
             todoText={todo.todoText}
             key={todo.id}
             id={todo.id}
-            handleComplete={handleComplete}
           ></Todo>
         );
       })}
