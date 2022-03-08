@@ -1,18 +1,22 @@
-import React, { useContext } from "react";
-import TodoContext, { TodoDispatchContext } from "./todoContext/TodoContext";
+import React, { useRef } from "react";
+import useTodoContext from "./CustonHook/useTodoContex";
 
 const TodoInput = () => {
+  const { dispatch } = useTodoContext();
   const id = Math.floor(Math.random() * 100);
-  const todos = useContext(TodoContext).todo;
-  const setTodoInput = useContext(TodoDispatchContext).setTodo;
+  const todoTextRef = useRef();
+
   function handleSubmit(e) {
     e.preventDefault();
-    const todo = e.target.firstElementChild.value;
-    const todos1 = [...todos, { todoText: todo, completed: false, id: id }];
-    todo === "" && " " ? alert("please input activity") : setTodoInput(todos1);
-    window.localStorage.setItem("myTodos", JSON.stringify(todos1));
-    e.target.firstElementChild.value = "";
-    e.target.firstElementChild.focus();
+    const value = e.target.firstElementChild.value;
+    value === " "
+      ? alert("please input activity")
+      : dispatch({
+          type: "ADD_TODO",
+          payload: { todos: { todoText: value, id: id } },
+        });
+    todoTextRef.current.value = "";
+    todoTextRef.current.focus();
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -20,6 +24,7 @@ const TodoInput = () => {
         id='addtodo-input'
         type='text'
         placeholder='Add activities'
+        ref={todoTextRef}
       ></input>
       <button type='submit' style={{ color: "red" }}>
         Add

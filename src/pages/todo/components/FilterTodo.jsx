@@ -1,22 +1,16 @@
-import React, { useContext } from "react";
-import { FilteredTodoDispatchContext } from "./todoContext/TodoContext";
+import React from "react";
+import useTodoContext from "./CustonHook/useTodoContex";
 
 const FilterTodo = () => {
-  const setFilterTodo = useContext(FilteredTodoDispatchContext).setFilterTodo;
+  const { dispatch } = useTodoContext();
   const handleFilter = (e) => {
-    const todos = [...JSON.parse(window.localStorage.getItem("myTodos"))];
-    let isCompleted;
-    const update = todos.filter((todo) => {
-      if (e.target.value === "completed") {
-        isCompleted = true;
-      } else if (e.target.value === "uncompleted") {
-        isCompleted = false;
-      } else {
-        isCompleted = todo.completed;
-      }
-      return todo.completed === isCompleted;
+    const complete = e.target.value;
+    dispatch({
+      type: "EDITFILTEREDCOMPLETE_TODO",
+      payload: {
+        filterTodos: { complete: complete },
+      },
     });
-    setFilterTodo(update);
   };
   return (
     <>

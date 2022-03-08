@@ -1,31 +1,32 @@
-import React, { useContext } from "react";
-import TodoContext, {
-  TodoDispatchContext,
-  FilteredTodoContext,
-  FilteredTodoDispatchContext,
-} from "./todoContext/TodoContext";
+import React from "react";
+import useTodoContext from "./CustonHook/useTodoContex";
 
 const Button = ({ buttonText }) => {
-  const inputTodo = useContext(TodoContext).todo;
-  const setTodoInput = useContext(TodoDispatchContext).setTodo;
-  const filterinputTodo = useContext(FilteredTodoContext).filterTodo;
-  const setFilterTodo = useContext(FilteredTodoDispatchContext).setFilterTodo;
+  // const inputTodo = useContext(TodoContext).todo;
+  const { dispatch, filterTodo } = useTodoContext();
   const handleComplete = (e) => {
-    const todoId = e.target.parentNode.parentNode.getAttribute("id");
-    if (filterinputTodo !== null) {
-      const findfilterTodo = filterinputTodo.find(
-        (todo) => todo.id === parseFloat(todoId)
-      );
-      findfilterTodo.completed = true;
-      setFilterTodo(filterinputTodo);
+    const todoId = parseFloat(
+      e.target.parentNode.parentNode.getAttribute("id")
+    );
+    if (filterTodo !== null) {
+      dispatch({
+        type: "EDITFILTEREDCOMPLETE_TODO",
+        payload: { filterTodos: { completed: todoId } },
+      });
+      // const findfilterTodo = filterinputTodo.find(
+      //   (todo) => todo.id === parseFloat(todoId)
+      // );
+      // findfilterTodo.completed = true;
+      // setFilterTodo(filterinputTodo);
     }
-    console.log(inputTodo);
-    const findInputTodo = inputTodo.find((todo) => {
-      return todo.id === parseFloat(todoId);
-    });
-    findInputTodo.completed = true;
-    window.localStorage.setItem("myTodos", JSON.stringify(inputTodo));
-    setTodoInput(JSON.parse(window.localStorage.getItem("myTodos")));
+    // console.log(inputTodo);
+    // const findInputTodo = inputTodo.find((todo) => {
+    //   return todo.id === parseFloat(todoId);
+    // });
+    // findInputTodo.completed = true;
+    dispatch({ type: "EDIT_COMPLETE", payload: { todos: { id: todoId } } });
+    // window.localStorage.setItem("myTodos", JSON.stringify(inputTodo));
+    // setTodoInput(JSON.parse(window.localStorage.getItem("myTodos")));
   };
   return (
     <button

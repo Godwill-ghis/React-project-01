@@ -1,0 +1,13 @@
+{
+  "todos": [
+    { "todoText": "With friends at home", "completed": false, "id": 1 },
+    { "todoText": "on my way", "completed": true, "id": 2 },
+    { "todoText": "Cooking with love", "completed": false, "id": 3 },
+    { "todoText": "onHolidays", "completed": true, "id": 4 },
+    { "todoText": "Gardening preparations", "completed": false, "id": 5 },
+    { "todoText": "Dancing for the Bride", "completed": false, "id": 6 },
+    { "todoText": "helping the needful", "completed": true, "id": 7 }
+  ],
+  "filterTodos": [],
+  "isFiltered": [false]
+}

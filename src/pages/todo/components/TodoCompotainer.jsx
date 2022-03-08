@@ -2,6 +2,7 @@ import React from "react";
 import Todos from "./Todos";
 import FilterTodo from "./FilterTodo";
 import TodoInput from "./TodoInput";
+import ClearTodos from "./ClearTodos";
 
 const TodoCompotainer = () => {
   return (
@@ -22,6 +23,7 @@ const TodoCompotainer = () => {
       >
         <h3>Your Activities</h3>
         <FilterTodo />
+        <ClearTodos />
       </div>
 
       <Todos />

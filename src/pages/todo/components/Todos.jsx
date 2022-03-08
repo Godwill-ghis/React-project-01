@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import Todo from "./Todo";
-import TodoContext, { FilteredTodoContext } from "./todoContext/TodoContext";
+import useTodoContext from "./CustonHook/useTodoContex";
 
 const Todos = () => {
-  const todos = useContext(TodoContext).todo;
-  const filterTodo = useContext(FilteredTodoContext).filterTodo;
-  const todoInput = filterTodo === null ? todos : filterTodo;
+  const { todo, filterTodo, isFiltered } = useTodoContext();
+  const todoInput = isFiltered ? filterTodo : todo;
   return (
     <div
       style={{

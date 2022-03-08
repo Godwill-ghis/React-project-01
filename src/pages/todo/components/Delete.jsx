@@ -1,27 +1,19 @@
-import React, { useContext } from "react";
-import TodoContext, {
-  TodoDispatchContext,
-  FilteredTodoDispatchContext,
-  FilteredTodoContext,
-} from "./todoContext/TodoContext";
+import React from "react";
+import useTodoContext from "./CustonHook/useTodoContex";
 
 const Delete = () => {
-  const todos = useContext(TodoContext).todo;
-  const setTodoInput = useContext(TodoDispatchContext).setTodo;
-  const filterinputTodo = useContext(FilteredTodoContext).filterTodo;
-  const setFilterTodo = useContext(FilteredTodoDispatchContext).setFilterTodo;
+  const { todo, dispatch, filterTodo } = useTodoContext();
   const handleDeleteTodo = (e) => {
-    const todo = e.target.parentNode.parentNode.parentNode.getAttribute("id");
-    if (filterinputTodo !== null) {
-      const filterUpdate = filterinputTodo.filter(
-        (element) => element.id !== parseFloat(todo)
-      );
-      setFilterTodo(filterUpdate);
+    const todo = parseFloat(
+      e.target.parentNode.parentNode.parentNode.getAttribute("id")
+    );
+    if (filterTodo !== null) {
+      dispatch({
+        type: "DELETEFILTERED_TODO",
+        payload: { filterTodos: { id: todo } },
+      });
+      dispatch({ type: "DELETE_TODO", payload: { todos: { id: todo } } });
     }
-    const update = todos.filter((element) => {
-      return element.id !== parseFloat(todo);
-    });
-    setTodoInput(update);
   };
   return (
     <div
